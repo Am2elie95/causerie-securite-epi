@@ -81,7 +81,7 @@ export default function Etape({ noeud }: { noeud: Noeud }) {
                 </div>
               ) : isEnonce ? (
                 <div className="bg-red-700 py-4 px-6 w-full sm:max-w-[475px]">
-                  <p className="text-white mb-5 text-base sm:text-lg font-semibold">
+                  <p className="text-white mb-2 text-base sm:text-lg font-semibold">
                     {noeud.texte}
                   </p>
                   <Link
