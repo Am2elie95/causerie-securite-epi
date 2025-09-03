@@ -17,6 +17,7 @@ export default function HomePage() {
             src="/images/intro-min.png"
             alt="Causerie sécurité"
             fill
+            quality={75}
             className="object-cover sm:object-contain"
             priority
           />

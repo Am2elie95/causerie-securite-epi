@@ -22,12 +22,13 @@ export default function Etape({ noeud }: { noeud: Noeud }) {
 
   return (
     <main className="w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden">
-      <div className="relative w-full h-full">
+      <div className="relative w-[520px] h-full">
         {/* Fond */}
         <Image
           src={noeud.image}
           alt={noeud.titre ?? noeud.texte ?? ""}
           fill
+          quality={75}
           className="object-cover sm:object-contain"
           priority
         />
@@ -63,8 +64,8 @@ export default function Etape({ noeud }: { noeud: Noeud }) {
         )}
 
         {/* ===================== CAS SANS CHOIX (CSS initial gardé) ===================== */}
-        {!hasTextChoices && !hasVisualChoices && (
-          <div className="absolute inset-0 flex flex-col items-center justify-end pb-8 text-center">
+        {/* {!hasTextChoices && !hasVisualChoices && (
+          <div className="absolute inset-x-0 flex flex-col items-center justify-end bottom-0 text-center">
             {isIntro ? (
               <div className="mb-4 bg-red-700 backdrop-blur-sm px-6 py-5 rounded-xl shadow-lg max-w-md w-[85%]">
                 {noeud.titre && (
@@ -79,7 +80,7 @@ export default function Etape({ noeud }: { noeud: Noeud }) {
                 )}
               </div>
             ) : isEnonce ? (
-              <div className="bg-red-700/90 px-6 py-4 pb-7 rounded-lg shadow-lg max-w-md w-[80%] mx-auto text-center">
+              <div className="bg-red-700 px-6 py-4 pb-7 shadow-lg max-w-md w-[80%] mx-auto text-center">
                 <p className="text-white mb-5 text-base sm:text-lg font-semibold">
                   {noeud.texte}
                 </p>
@@ -98,10 +99,48 @@ export default function Etape({ noeud }: { noeud: Noeud }) {
                   </p>
                 </div>
               )
-            )}
+            )} */}
+
+            {!hasTextChoices && !hasVisualChoices && (
+            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end text-center mb-4">
+              {isIntro ? (
+                <div className="bg-red-700 px-6 py-5 shadow-lg w-full">
+                  {noeud.titre && (
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-white uppercase">
+                      {noeud.titre}
+                    </h1>
+                  )}
+                  {noeud.sousTitre && (
+                    <p className="mt-2 text-lg sm:text-2xl font-bold text-white uppercase">
+                      {noeud.sousTitre}
+                    </p>
+                  )}
+                </div>
+              ) : isEnonce ? (
+                <div className="bg-red-700 px-6 py-6 shadow-lg w-full">
+                  <p className="text-white mb-5 text-base sm:text-lg font-semibold">
+                    {noeud.texte}
+                  </p>
+                  <Link
+                    href={`/etape/${noeud.suivant}`}
+                    className="px-4 py-2 bg-white text-red-700 font-semibold rounded-lg shadow-md hover:bg-gray-100 transition"
+                  >
+                    {noeud.libelleSuivant ?? "Suivant"}
+                  </Link>
+                </div>
+              ) : (
+                noeud.texte && (
+                  <div className="bg-red-700 px-6 py-6 shadow-lg w-full">
+                    <p className="text-white text-lg sm:text-2xl font-bold drop-shadow">
+                      {noeud.texte}
+                    </p>
+                  </div>
+                )
+              )}
+
 
             {/* Boutons génériques (inchangés) */}
-            <div className="mt-4 flex flex-col items-center gap-3">
+            <div className="mt-4 flex flex-col items-center gap-3 mb-1">
               {noeud.suivant && !isEnonce && (
                 <Link
                   href={`/etape/${noeud.suivant}`}
@@ -111,9 +150,9 @@ export default function Etape({ noeud }: { noeud: Noeud }) {
                 </Link>
               )}
 
-                 {/* Cas fin */}
+              {/* Cas fin */}
               {noeud.estFin && (noeud.redirigeVers || noeud.formUrl) && (
-                <div className="flex flex-col sm:flex-row gap-3">
+                <div className="flex flex-col sm:flex-row gap-3 mb-8">
                   {noeud.redirigeVers && (
                     <Link
                       href={`/etape/${noeud.redirigeVers}`}
