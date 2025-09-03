@@ -14,7 +14,7 @@ export default function HomePage() {
       <main className="w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden">
         <div className="relative w-full h-full">
           <Image
-            src="/images/intro-min.png"
+            src="/images/intro-min.webp"
             alt="Causerie sécurité"
             fill
             quality={75}

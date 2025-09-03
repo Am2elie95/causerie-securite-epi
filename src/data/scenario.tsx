@@ -33,7 +33,7 @@ export const scenario: Record<string, Noeud> = {
   // ========= INTRO =========
   intro: {
     id: "intro",
-    image: "/images/intro-min.png",
+    image: "/images/intro-min.webp",
     titre: "Causerie sécurité Les EPI",
     texte: "Fais les bons choix pour rester en sécurité pendant la collecte.",
     suivant: "1",
@@ -43,7 +43,7 @@ export const scenario: Record<string, Noeud> = {
   // ========= SITUATION 1 =========
   "1": {
     id: "1",
-    image: "/images/s1/s1-intro-min.png",
+    image: "/images/s1/s1-intro-min.webp",
     titre: "SITUATION N° 1",
     sousTitre: "FAIS LE BON CHOIX !",
     suivant: "1-enonce",
@@ -51,14 +51,14 @@ export const scenario: Record<string, Noeud> = {
   },
   "1-enonce": {
     id: "1-enonce",
-    image: "/images/s1/s1-question-min.png",
+    image: "/images/s1/s1-question-min.webp",
     texte: "Avant de partir en collecte, je constate que la semelle de ma chaussure est déchirée.",
     suivant: "1-choix",
     libelleSuivant: "Suivant",
   },
   "1-choix": {
     id: "1-choix",
-    image: "/images/s1/s1-choix-min.png",
+    image: "/images/s1/s1-choix-min.webp",
     choix: [
       { libelle: "Choix N°1 : Je décide de partir en collecte.", suivant: "1-mauvais-1" },
       { libelle: "Choix N°2 : Je demande une nouvelle paire de chaussure à mon responsable", suivant: "1-bon-1" },
@@ -66,14 +66,14 @@ export const scenario: Record<string, Noeud> = {
   },
   "1-mauvais-1": {
     id: "1-mauvais-1",
-    image: "/images/s1/s1-mauvais-choix-1-min.png",
+    image: "/images/s1/s1-mauvais-choix-1-min.webp",
     texte: "Une chaussure de sécurité endommagée ne protège plus tes pieds et augmente le risque d’accident.",
     suivant: "1-mauvais-2",
     libelleSuivant: "Compris",
   },
   "1-mauvais-2": {
     id: "1-mauvais-2",
-    image: "/images/s1/s1-mauvais-choix-2-min.png",
+    image: "/images/s1/s1-mauvais-choix-2-min.webp",
     texte: "Un EPI en bon état, c’est la sécurité en plus.",
     estFin: true,
     redirigeVers: "2",
@@ -81,14 +81,14 @@ export const scenario: Record<string, Noeud> = {
   },
   "1-bon-1": {
     id: "1-bon-1",
-    image: "/images/s1/s1-bon-choix-1-min.png",
+    image: "/images/s1/s1-bon-choix-1-min.webp",
     texte: "Bonne décision : tu demandes une nouvelle paire à ton responsable.",
     suivant: "1-bon-2",
     libelleSuivant: "Suivant",
   },
   "1-bon-2": {
     id: "1-bon-2",
-    image: "/images/s1/s1-bon-choix-2-min.png",
+    image: "/images/s1/s1-bon-choix-2-min.webp",
     texte: "Un EPI en bon état, c’est la sécurité en plus.",
     estFin: true,
     redirigeVers: "2",
@@ -98,7 +98,7 @@ export const scenario: Record<string, Noeud> = {
   // ========= SITUATION 2 =========
   "2": {
     id: "2",
-    image: "/images/s2/s2-intro-min.png",
+    image: "/images/s2/s2-intro-min.webp",
     titre: "SITUATION N° 2",
     sousTitre: "FAIS LE BON CHOIX !",
     suivant: "2-enonce",
@@ -106,14 +106,14 @@ export const scenario: Record<string, Noeud> = {
   },
   "2-enonce": {
     id: "2-enonce",
-    image: "/images/s2/s2-question-min.png",
+    image: "/images/s2/s2-question-min.webp",
     texte: "En collecte, je constate que mon nouveau collègue ne porte pas ses gants.",
     suivant: "2-choix",
     libelleSuivant: "Suivant",
   },
   "2-choix": {
     id: "2-choix",
-    image: "/images/s2/s2-choix-min.png",
+    image: "/images/s2/s2-choix-min.webp",
     choix: [
       {libelle: "Choix N°1 : Je ne dis rien, ça ne me concerne pas.",suivant: "2-mauvais-1",},
       {libelle: "Choix N°2 : Je lui conseille de porter ses gants.",suivant: "2-bon-1",},
@@ -121,14 +121,14 @@ export const scenario: Record<string, Noeud> = {
   },
   "2-mauvais-1": {
     id: "2-mauvais-1",
-    image: "/images/s2/s2-mauvais-choix-1-min.png",
+    image: "/images/s2/s2-mauvais-choix-1-min.webp",
     texte: "Travailler sans gants augmente le risque de coupures, de blessures et de contaminations.",
     suivant: "2-mauvais-2",
     libelleSuivant: "Compris",
   },
   "2-mauvais-2": {
     id: "2-mauvais-2",
-    image: "/images/s2/s2-mauvais-choix-2-min.png",
+    image: "/images/s2/s2-mauvais-choix-2-min.webp",
     texte: "La sécurité, c’est l’affaire de tous. Un blessé et c’est toute l’équipe qui est impactée.",
     estFin: true,
     redirigeVers: "3",
@@ -136,14 +136,14 @@ export const scenario: Record<string, Noeud> = {
   },
   "2-bon-1": {
     id: "2-bon-1",
-    image: "/images/s2/s2-bon-choix-1-min.png",
+    image: "/images/s2/s2-bon-choix-1-min.webp",
     texte: "Bonne décision : tu rappelles le port des gants. On protège nos mains à chaque manutention.",
     suivant: "2-bon-2",
     libelleSuivant: "Suivant",
   },
   "2-bon-2": {
     id: "2-bon-2",
-    image: "/images/s2/s2-bon-choix-2-min.png",
+    image: "/images/s2/s2-bon-choix-2-min.webp",
     texte: "La sécurité, c’est aussi une affaire d’équipiers. Un rappel amical peut éviter un accident.",
     estFin: true,
     redirigeVers: "3",
@@ -153,7 +153,7 @@ export const scenario: Record<string, Noeud> = {
     // ========= SITUATION 3 =========
     "3": {
     id: "3",
-    image: "/images/s3/s3-intro-min.png",
+    image: "/images/s3/s3-intro-min.webp",
     titre: "SITUATION N° 3",
     sousTitre: "FAIS LE BON CHOIX !",
     suivant: "3-enonce",
@@ -161,14 +161,14 @@ export const scenario: Record<string, Noeud> = {
     },
     "3-enonce": {
     id: "3-enonce",
-    image: "/images/s3/s3-question-min.png",
+    image: "/images/s3/s3-question-min.webp",
     texte: "Je suis chauffeur et je descends aider mes collègues.",
     suivant: "3-choix",
     libelleSuivant: "Suivant",
     },
     "3-choix": {
     id: "3-choix",
-    image: "/images/s3/s3-choix-min.png",
+    image: "/images/s3/s3-choix-min.webp",
     choix: [
     { libelle: "Choix N°1 : Je descends que quelque secondes, je n'ai pas besoin de gilet/veste haute visibilité.", suivant: "3-mauvais-1" },
     { libelle: "Choix N°2 : Je mets un gilet/veste haute visibilité", suivant: "3-bon-1" },
@@ -176,14 +176,14 @@ export const scenario: Record<string, Noeud> = {
     },
     "3-mauvais-1": {
     id: "3-mauvais-1",
-    image: "/images/s3/s3-mauvais-choix-1-min.png",
+    image: "/images/s3/s3-mauvais-choix-1-min.webp",
     texte: "Moins je suis visible, plus je suis en danger",
     suivant: "3-mauvais-2",
     libelleSuivant: "Compris",
     },
     "3-mauvais-2": {
     id: "3-mauvais-2",
-    image: "/images/s3/s3-mauvais-choix-2-min.png",
+    image: "/images/s3/s3-mauvais-choix-2-min.webp",
     texte: "Pour travailler en sécurité, je dois être visible rapidement, de loin et par mauvais temps",
     estFin: true,
     redirigeVers: "fin-intro",
@@ -191,14 +191,14 @@ export const scenario: Record<string, Noeud> = {
     },
     "3-bon-1": {
     id: "3-bon-1",
-    image: "/images/s3/s3-bon-choix-1-min.png",
+    image: "/images/s3/s3-bon-choix-1-min.webp",
     texte: "Bonne décision : être visible rapidement, de loin c'est être en sécurité.",
     suivant: "3-bon-2",
     libelleSuivant: "Suivant",
     },
     "3-bon-2": {
     id: "3-bon-2",
-    image: "/images/s3/s3-bon-choix-2-min.png",
+    image: "/images/s3/s3-bon-choix-2-min.webp",
     texte: "Pour travailler en sécurité je dois être visible rapidement, de loin et par mauvais temps.",
     estFin: true,
     redirigeVers: "fin-intro",
@@ -208,13 +208,13 @@ export const scenario: Record<string, Noeud> = {
   // ========= FIN =========
   "fin-intro": {
     id: "fin-intro",
-    image: "/images/flash-min.png",
+    image: "/images/flash-min.webp",
     suivant: "fin-bravo",
     libelleSuivant: "Continuer",
   },
   "fin-bravo": {
     id: "fin-bravo",
-    image: "/images/bravo-min.png",
+    image: "/images/bravo-min.webp",
     estFin: true,
     formUrl: "https://docs.google.com/forms/d/1LSziBwtHUKtm5NG3y8LYa-hxAZb_4D-nKjoGUzMpiEY/edit",
     redirigeVers: "intro",
