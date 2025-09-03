@@ -7,8 +7,8 @@ import Link from "next/link";
 // import Situation from "@/components/Situation";
 
 export default function HomePage() {
-  const [start, setStart] = useState(false);
-
+  const [start, _setStart] = useState(false);
+  
   if (!start) {
     return (
       <main className="w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden">
