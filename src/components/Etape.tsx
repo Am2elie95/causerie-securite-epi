@@ -2,144 +2,121 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import type { Noeud } from "@/data/scenario";
+import { Noeud } from "@/data/scenario";
 
 export default function Etape({ noeud }: { noeud: Noeud }) {
-  // Sécurise TS : tableaux vides si undefined
-  const choicesText = noeud.choix ?? [];
-  const choicesVisual = noeud.choixVisuels ?? [];
+  
+  // --- CAS N°1 : ÉTAPE AVEC ZONES CLIQUABLES SUR L'IMAGE ---
+  if (noeud.zonesCliquables) {
+    const zoneHaute = noeud.zonesCliquables.find(z => z.zone === 'haut');
+    const zoneBasse = noeud.zonesCliquables.find(z => z.zone === 'bas');
 
-  const hasTextChoices = choicesText.length > 0;
-  const hasVisualChoices = choicesVisual.length === 2;
-
-  const isIntro = Boolean(noeud.titre);
-  const isEnonce =
-    !noeud.titre &&
-    !!noeud.texte &&
-    !hasTextChoices &&
-    !hasVisualChoices &&
-    !!noeud.suivant;
-
-  return (
-    <main className="w-full h-[100dvh] flex flex-col items-center justify-center overflow-hidden">
-      <div className="relative w-full h-full">
-        {/* Fond */}
+    return (
+      <main className="w-full h-[100dvh] bg-white relative">
         <Image
           src={noeud.image}
-          alt={noeud.titre ?? noeud.texte ?? ""}
+          alt="Écran de choix"
           fill
-          quality={75}
-          className="object-cover sm:object-contain"
+          quality={90}
           priority
+          className="object-contain"
         />
-
-        {/* ===================== CHOIX (Bandeaux rouges pleine largeur) ===================== */}
-        {/* Cas 1 : choix textuels */}
-        {hasTextChoices && (
-          <>
-            {/* Choix 1 centré */}
-            {choicesText[0] && (
-              <div className="absolute inset-0 flex items-center justify-center mb-10">
-                <Link
-                  href={`/etape/${choicesText[0].suivant}`}
-                  className="bg-red-700 text-white text-base sm:text-lg font-bold text-center  hover:bg-red-800 transition py-4 px-6 w-full sm:max-w-[475px]"
-                >
-                  {choicesText[0].libelle}
-                </Link>
-              </div>
-            )}
-
-            {/* Choix 2 en bas */}
-            {choicesText[1] && (
-              <div className="absolute inset-x-0 bottom-0 flex justify-center">
-                <Link
-                  href={`/etape/${choicesText[1].suivant}`}
-                  className="bg-red-700 text-white text-base sm:text-lg font-bold text-center py-4 px-6 hover:bg-red-800 transition w-full sm:max-w-[475px]"
-                >
-                  {choicesText[1].libelle}
-                </Link>
-              </div>
-            )}
-          </>
+        {zoneHaute && (
+          <Link
+            href={`/etape/${zoneHaute.suivant}`}
+            className="absolute top-0 left-0 w-full h-1/2"
+            aria-label={zoneHaute.libelle}
+          />
         )}
+        {zoneBasse && (
+          <Link
+            href={`/etape/${zoneBasse.suivant}`}
+            className="absolute bottom-0 left-0 w-full h-1/2"
+            aria-label={zoneBasse.libelle}
+          />
+        )}
+      </main>
+    );
+  }
 
-        {/* ===================== CAS SANS CHOIX (CSS initial gardé) ===================== */}
-            {!hasTextChoices && !hasVisualChoices && (
-            <div className="absolute inset-x-0 bottom-0 flex flex-col items-center justify-end text-center mb-4">
-              {isIntro ? (
-                <div className="bg-red-700 py-4 px-6 w-full sm:max-w-[475px]">
-                  {noeud.titre && (
-                    <h1 className="text-3xl sm:text-4xl font-extrabold text-white uppercase">
-                      {noeud.titre}
-                    </h1>
-                  )}
-                  {noeud.sousTitre && (
-                    <p className="mt-2 text-lg sm:text-2xl font-bold text-white uppercase">
-                      {noeud.sousTitre}
-                    </p>
-                  )}
-                </div>
-              ) : isEnonce ? (
-                <div className="bg-red-700 py-4 px-6 w-full sm:max-w-[475px]">
-                  <p className="text-white mb-2 text-base sm:text-lg font-semibold">
-                    {noeud.texte}
-                  </p>
-                  <Link
-                    href={`/etape/${noeud.suivant}`}
-                    className="px-4 py-2 bg-white text-red-700 font-semibold rounded-lg shadow-md hover:bg-gray-100 transition"
-                  >
-                    {noeud.libelleSuivant ?? "Suivant"}
+  // --- CAS N°2 : ÉTAPE CLASSIQUE (IMAGE + BANDEAU ROUGE) ---
+  return (
+    <main className="w-full h-[100dvh] flex flex-col items-center bg-white overflow-hidden">
+      <div className="w-full max-w-[500px] h-full flex flex-col">
+        <div className="flex-1 relative">
+          <Image
+            src={noeud.image}
+            alt={noeud.titre ?? "Image de l'étape"}
+            fill
+            quality={90}
+            priority
+            className="object-cover"
+          />
+        </div>
+
+        <div className="w-full bg-red-800 py-6 px-4 text-center text-white">
+          {noeud.titre && (
+            <h1 className={`font-extrabold mb-2 ${noeud.id === 'intro' ? 'text-2xl sm:text-5xl' : 'text-4xl sm:text-3xl'}`}>
+              {noeud.titre}
+            </h1>
+          )}
+          {noeud.sousTitre && (
+             <p className="text-lg font-bold mb-3 uppercase opacity-90">
+                {noeud.sousTitre}
+             </p>
+          )}
+          {noeud.texte && (
+            <p className="text-base mb-4 font-bold uppercase">
+              {noeud.texte}
+            </p>
+          )}
+
+          {/* ==================== BLOC BOUTONS MIS À JOUR ==================== */}
+          <div className="mt-4">
+
+            {/* Affiche les boutons de choix (verticaux) s'ils existent */}
+            {noeud.choix && (
+              <div className="flex flex-col space-y-3">
+                {noeud.choix.map((choix) => (
+                  <Link key={choix.suivant} href={`/etape/${choix.suivant}`} className="inline-flex items-center justify-center bg-gradient-to-b from-white to-gray-200 text-gray-700 font-bold py-3 px-6 rounded-md shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+                    {choix.libelle}
                   </Link>
-                </div>
-              ) : (
-                noeud.texte && (
-                  <div className="bg-red-700 py-4 px-6 w-full sm:max-w-[475px]">
-                    <p className="text-white text-lg sm:text-2xl font-bold drop-shadow">
-                      {noeud.texte}
-                    </p>
-                  </div>
-                )
-              )}
+                ))}
+              </div>
+            )}
 
+            {/* Affiche les deux boutons de fin (horizontaux) si c'est l'étape finale */}
+            {noeud.estFin && (
+              <div className="flex flex-row items-center justify-center space-x-4">
+               
+                {noeud.redirigeVers && (
+                  <Link href={`/etape/${noeud.redirigeVers}`} className="inline-flex items-center justify-center bg-gradient-to-b from-white to-gray-200 text-gray-700 font-bold py-3 px-6 rounded-md shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+                    {noeud.libelleRedirection || "Rejouer"}
+                  </Link>
+                )}
+                 {noeud.formUrl && (
+                  <a
+                    href={noeud.formUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center bg-red-500 text-white font-bold py-3 px-6 rounded-md shadow-md hover:bg-red-600 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+                  >
+                   Quitter
+                  </a>
+                )}
+              </div>
+            )}
 
-            {/* Boutons génériques (inchangés) */}
-            <div className="mt-4 flex flex-col items-center gap-3 mb-1">
-              {noeud.suivant && !isEnonce && (
-                <Link
-                  href={`/etape/${noeud.suivant}`}
-                  className="px-4 py-2 bg-white text-red-700 font-semibold rounded-lg shadow-md hover:bg-gray-100 transition"
-                >
-                  {noeud.libelleSuivant ?? "Suivant"}
-                </Link>
-              )}
-
-              {/* Cas fin */}
-              {noeud.estFin && (noeud.redirigeVers || noeud.formUrl) && (
-                <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                  {noeud.redirigeVers && (
-                    <Link
-                      href={`/etape/${noeud.redirigeVers}`}
-                      className="px-6 py-3 bg-white text-red-700 font-semibold rounded-lg shadow-md hover:bg-gray-100 transition"
-                    >
-                      {noeud.libelleRedirection ?? "Rejouer"}
-                    </Link>
-                  )}
-
-                  {noeud.formUrl && (
-                    <a
-                      href={noeud.formUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition"
-                    >
-                      Valider sur Google Form
-                    </a>
-                  )}
-                </div>
-              )}
-            </div>
+            {/* Affiche le bouton "Suivant" normal sur toutes les autres étapes */}
+            {!noeud.choix && !noeud.estFin && noeud.suivant && (
+              <Link href={`/etape/${noeud.suivant}`} className="inline-flex items-center justify-center bg-gradient-to-b from-white to-gray-200 text-gray-700 font-bold py-3 px-6 rounded-md shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+                <span>{noeud.libelleSuivant || "Suivant"}</span>
+              </Link>
+            )}
+            
           </div>
-        )}
+          {/* ================================================================ */}
+        </div>
       </div>
     </main>
   );
